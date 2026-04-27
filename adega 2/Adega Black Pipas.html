@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)file:///C:/Users/Nicolas/Downloads/adega-black-pipas_14.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adega Black Pipas</title>
+<link href="./Adega Black Pipas_files/css2" rel="stylesheet">
+<style>
+:root{
+  --gold:#C9A84C;--gold-light:#E8C96A;--gold-dark:#8B6914;
+  --black:#0A0A0A;--dark:#111111;--dark2:#1A1A1A;--dark3:#242424;--dark4:#2E2E2E;
+  --gray:#888;--gray-light:#BBB;--white:#F5F0E8;
+  --red:#C0392B;--green:#27AE60;--orange:#E67E22;
+  --sidebar-w:230px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--black);color:var(--white);font-family:'Crimson Pro',Georgia,serif;min-height:100vh;}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--dark3);border:1px solid var(--gold);color:var(--white);padding:12px 20px;border-radius:8px;font-size:14px;z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none;max-width:300px;}
+#toast.show{opacity:1;}
+#toast.error{border-color:var(--red);}
+#toast.success{border-color:var(--green);}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:16px;}
+.modal-overlay.active{display:flex;}
+.modal{background:var(--dark2);border:1px solid var(--gold-dark);border-radius:12px;padding:28px;max-width:480px;width:100%;max-height:90vh;overflow-y:auto;position:relative;}
+.modal h2{font-family:'Playfair Display',serif;color:var(--gold);margin-bottom:20px;font-size:22px;}
+.modal label{display:block;font-size:13px;color:var(--gray-light);margin-bottom:4px;margin-top:14px;}
+.modal input,.modal select{width:100%;background:var(--dark3);border:1px solid var(--dark4);color:var(--white);padding:10px 12px;border-radius:6px;font-family:inherit;font-size:15px;}
+.modal input:focus,.modal select:focus{outline:none;border-color:var(--gold);}
+.btn{display:inline-block;padding:10px 22px;border-radius:6px;border:none;cursor:pointer;font-family:'Crimson Pro',serif;font-size:15px;font-weight:600;transition:all 0.2s;}
+.btn-gold{background:var(--gold);color:var(--black);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-outline{background:transparent;border:1px solid var(--gold);color:var(--gold);}
+.btn-outline:hover{background:var(--gold);color:var(--black);}
+.btn-red{background:var(--red);color:#fff;}
+.btn-red:hover{background:#a93226;}
+.btn-green{background:var(--green);color:#fff;}
+.btn-green:hover{background:#219a52;}
+.btn-sm{padding:6px 14px;font-size:13px;}
+.btn-full{width:100%;margin-top:18px;}
+
+/* TOPBAR */
+#topbar{background:var(--dark2);border-bottom:1px solid var(--dark4);padding:8px 16px;display:flex;align-items:center;gap:12px;font-size:13px;position:sticky;top:0;z-index:200;}
+#topbar .address-info{color:var(--gray);margin-right:auto;font-size:12px;}
+#topbar .address-info span{color:var(--gold);}
+
+/* LAYOUT: sidebar + content */
+#layout{display:flex;min-height:calc(100vh - 44px);}
+
+/* SIDEBAR */
+#sidebar{
+  width:var(--sidebar-w);
+  min-width:var(--sidebar-w);
+  background:var(--dark);
+  border-right:1px solid var(--dark4);
+  display:flex;
+  flex-direction:column;
+  position:sticky;
+  top:44px;
+  height:calc(100vh - 44px);
+  overflow-y:auto;
+  scrollbar-width:thin;
+  scrollbar-color:var(--dark4) transparent;
+}
+#sidebar::-webkit-scrollbar{width:4px;}
+#sidebar::-webkit-scrollbar-thumb{background:var(--dark4);}
+
+/* LOGO in sidebar */
+#sidebar-logo{
+  padding:10px 6px 8px;
+  text-align:center;
+  border-bottom:1px solid var(--dark4);
+  background:var(--dark);
+}
+#sidebar-logo img{
+  width:100%;
+  max-width:380px;
+  height:auto;
+  max-height:200px;
+  object-fit:contain;
+  display:block;
+  margin:0 auto;
+  mix-blend-mode:screen;
+  filter:brightness(1.6) contrast(1.3) saturate(1.2);
+}
+
+/* NAV ITEMS */
+#sidebar nav{flex:1;padding:8px 0;}
+#sidebar nav button{
+  display:flex;align-items:center;gap:10px;
+  width:100%;padding:11px 18px;
+  background:none;border:none;
+  color:var(--gray);
+  font-family:'Crimson Pro',serif;font-size:14px;
+  cursor:pointer;text-align:left;
+  border-left:3px solid transparent;
+  transition:all 0.18s;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+#sidebar nav button:hover{color:var(--gold-light);background:rgba(201,168,76,0.06);}
+#sidebar nav button.active{color:var(--gold);border-left-color:var(--gold);background:rgba(201,168,76,0.1);font-weight:600;}
+#sidebar nav .nav-sep{height:1px;background:var(--dark4);margin:6px 12px;}
+
+/* MAIN CONTENT */
+#content{flex:1;min-width:0;padding:24px 20px;overflow-x:hidden;}
+
+/* SECTIONS */
+.section{display:none;}
+.section.active{display:block;}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.section-header h2{font-family:'Playfair Display',serif;color:var(--gold);font-size:26px;}
+
+/* PRODUCT GRID */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;}
+.product-card{background:var(--dark2);border:1px solid var(--dark4);border-radius:10px;overflow:hidden;transition:border-color 0.2s, transform 0.15s, box-shadow 0.15s;cursor:pointer;}
+.product-card:hover{border-color:var(--gold-dark);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.4);}
+.product-img{width:100%;height:150px;background:var(--dark3);display:flex;align-items:center;justify-content:center;font-size:42px;overflow:hidden;}
+.product-img img{width:100%;height:100%;object-fit:cover;}
+.product-info{padding:12px;}
+.product-name{font-size:15px;font-weight:600;color:var(--white);margin-bottom:3px;}
+.product-desc{font-size:12px;color:var(--gray);margin-bottom:6px;}
+.product-price{font-size:19px;color:var(--gold);font-weight:600;}
+.product-stock{font-size:11px;margin-top:3px;}
+.stock-ok{color:var(--green);}
+.stock-low{color:var(--orange);}
+.stock-out{color:var(--red);}
+.product-actions{padding:8px 12px;border-top:1px solid var(--dark4);}
+
+/* SUB TABS (cervejas) */
+.sub-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.sub-tab{padding:6px 14px;border-radius:20px;border:1px solid var(--dark4);background:none;color:var(--gray);cursor:pointer;font-family:inherit;font-size:13px;transition:all 0.2s;}
+.sub-tab.active{background:var(--gold);color:var(--black);border-color:var(--gold);font-weight:600;}
+.sub-panel{display:none;}
+.sub-panel.active{display:block;}
+
+/* INNER TABS (painel) */
+.inner-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.inner-tab{padding:7px 16px;border-radius:20px;border:1px solid var(--dark4);background:none;color:var(--gray);cursor:pointer;font-family:inherit;font-size:13px;transition:all 0.2s;}
+.inner-tab.active{background:var(--gold);color:var(--black);border-color:var(--gold);font-weight:600;}
+.inner-panel{display:none;}
+.inner-panel.active{display:block;}
+
+/* CART BUTTON */
+#cart-btn{position:fixed;bottom:24px;right:24px;background:var(--gold);color:var(--black);border:none;border-radius:50px;padding:12px 20px;font-family:'Crimson Pro',serif;font-weight:700;font-size:15px;cursor:pointer;z-index:500;box-shadow:0 4px 20px rgba(201,168,76,0.4);display:none;align-items:center;gap:8px;transition:all 0.2s;}
+#cart-btn:hover{background:var(--gold-light);transform:scale(1.04);}
+#cart-badge{background:var(--red);color:#fff;border-radius:50%;width:20px;height:20px;font-size:11px;display:flex;align-items:center;justify-content:center;}
+
+/* CART ITEMS */
+.cart-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--dark4);}
+.cart-item-name{flex:1;font-size:15px;}
+.cart-qty-ctrl{display:flex;align-items:center;gap:8px;}
+.qty-btn{background:var(--dark3);border:1px solid var(--dark4);color:var(--white);width:28px;height:28px;border-radius:4px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.qty-btn:hover{border-color:var(--gold);}
+.cart-item-price{color:var(--gold);font-weight:600;min-width:70px;text-align:right;}
+.cart-total{display:flex;justify-content:space-between;align-items:center;padding:16px 0 0;font-size:18px;font-weight:700;}
+.cart-total span:last-child{color:var(--gold);font-size:22px;}
+.payment-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0;}
+.pay-option{background:var(--dark3);border:1px solid var(--dark4);border-radius:8px;padding:11px;cursor:pointer;text-align:center;font-size:14px;transition:all 0.2s;}
+.pay-option:hover,.pay-option.selected{border-color:var(--gold);color:var(--gold);}
+.pay-icon{font-size:18px;display:block;margin-bottom:3px;}
+
+/* OWNER PANEL */
+.owner-section{background:var(--dark2);border:1px solid var(--dark4);border-radius:10px;padding:20px;margin-bottom:20px;}
+.owner-section h3{color:var(--gold);font-family:'Playfair Display',serif;margin-bottom:16px;font-size:18px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:13px;color:var(--gray-light);margin-bottom:4px;}
+.form-group input,.form-group select{width:100%;background:var(--dark3);border:1px solid var(--dark4);color:var(--white);padding:9px 12px;border-radius:6px;font-family:inherit;font-size:14px;}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--gold);}
+.orders-table{width:100%;border-collapse:collapse;font-size:13px;}
+.orders-table th{text-align:left;padding:9px 10px;background:var(--dark3);color:var(--gray);font-weight:400;border-bottom:1px solid var(--dark4);}
+.orders-table td{padding:9px 10px;border-bottom:1px solid var(--dark4);vertical-align:middle;}
+.orders-table tr:hover td{background:rgba(255,255,255,0.02);}
+.status-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.status-pending{background:rgba(230,126,34,0.2);color:var(--orange);}
+.status-accepted{background:rgba(39,174,96,0.2);color:var(--green);}
+.status-declined{background:rgba(192,57,43,0.2);color:var(--red);}
+.status-delivered{background:rgba(201,168,76,0.2);color:var(--gold);}
+.alert-card{background:rgba(230,126,34,0.1);border:1px solid var(--orange);border-radius:8px;padding:11px 14px;margin-bottom:8px;font-size:13px;}
+.alert-card strong{color:var(--orange);}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:20px;}
+.stat-card{background:var(--dark2);border:1px solid var(--dark4);border-radius:10px;padding:14px;text-align:center;}
+.stat-card .stat-val{font-size:26px;font-weight:700;color:var(--gold);font-family:'Playfair Display',serif;}
+.stat-card .stat-lbl{font-size:11px;color:var(--gray);margin-top:3px;text-transform:uppercase;letter-spacing:1px;}
+.delivery-info{background:var(--dark3);border:1px solid var(--dark4);border-radius:8px;padding:12px;margin:10px 0;font-size:13px;}
+.delivery-info strong{color:var(--gold);}
+.empty-state{text-align:center;padding:40px 20px;color:var(--gray);}
+.empty-state .empty-icon{font-size:44px;margin-bottom:10px;}
+
+/* MOBILE */
+#sidebar-toggle{display:none;background:none;border:none;color:var(--gold);font-size:22px;cursor:pointer;padding:0 8px;}
+@media(max-width:768px){
+  #sidebar-toggle{display:block;}
+  #sidebar{position:fixed;top:44px;left:0;z-index:300;transform:translateX(-100%);transition:transform 0.25s;height:calc(100vh - 44px);}
+  #sidebar.open{transform:translateX(0);}
+  #content{padding:16px 12px;}
+  .form-row{grid-template-columns:1fr;}
+}
+
+#fb-loading{position:fixed;inset:0;background:var(--black);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
+#fb-loading img{max-width:200px;mix-blend-mode:screen;filter:brightness(1.6) contrast(1.3);}
+#fb-loading p{color:var(--gray);font-size:14px;font-family:'Crimson Pro',serif;}
+.fb-spinner{width:36px;height:36px;border:3px solid var(--dark4);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<div id="fb-loading" style="display: none;">
+  <img src="data:image/jpeg;base64,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HdLlU3Kd16qJXVgnLpPMdbX5GdOPKORgny4H0Xr5sdP30jv+eLnFa015ZXa219Jb4oJqzzVcYaymoaZxD4SR+LWCCDznO/ZeXanNvp5vpn69Pou1aZ1HfxdOyMqaqqkut3eGvYSRBNMaZ0be2ksGD9RyqM0xfpE9PTqZiUTqleSveVT696xe2oMVNS0hmcDh0lUaoxDscEkA+n7L0OD4SLz5WZ17I1v392bLk5I5Ij5/4jo8se4uJJOSeSvbZGKAglpQdazXitskrprdM2NzwNQdG14djjYj9lTmwY81eW8bj4Oq2mvWHoFJ7SYLhB4N68RshYA+tqG6yB3bGxjQAT6n7k8Lyc/6dk3zU6+iO3xme7TizxWY30fC7UNumiElpqDnQNcPiAluSC2JwBwXE4JaM7/3jHbLS2rxv16+Mx92nmx3jcdJcMXSgoqVlBWNdVvaP4jCAI9WonGSRx9MLT/T5b38rSeX69nE58VccUtG33b1N4tWZvfaeCJrNEYLJJMb5JwACSdt+Bhcx+n1inLr2+H3czxt5vzerT7VnWUjnh3vZqXNbhrmxODQDzgO+gVdP0ysRqK696Y4ud7nv7GhZOpRamPjhfVODySXPGojPocq/PwXlrRaYjo5xcTGOOWs93bqOpKSooHB15ayplBbpfRO2yOS7LQFnx/p8ReJ5ekev/a2/FTNO/X2OJN1Exs1CQ6NzaR+HGCQkujIwW4cG5Owx2WmvBdLx/2+vuVTxkzNJ1+1uOjp7xVx1tukLGyDTID5HawOM/1NyMZ7KiOfBXkyR298fkSunyWSeeJ7u5Fd+numxHLFNHVyOZ/JK0vjmA/AcZcx4O24xx6nGf8Ap+Jz9Lf69frifU4vmpWsxVxb77QrrdQ2noZp4KXSW+FOI5XMz6O05x9cn5r0MPAUrqcnWY9G4+TJOTfZSJtLAGgAkei9BU1sqUCAgIMmnfdBuQSjTh2D9Vzp0zY6HWS9mMbgN4ypmZOjGSBuNTW4GAUNMqaNrs7HP9ioH2L4x5NII/MeUSlpDHHGOMgIh8XZlJadv8IPm6EbDnHdSaZNjYyM5BIzn7ptGmTTEx2rSGu9OU6yl8Z6jXx+gREy1CT6qUIQEBAQEEhxCDNshbuFGjb6GcluCThE7G1BaMDKG2bJQc6u6JZOmaCCw745UDEzdyd1I+fjY4PCI2zdUFzRvuht8HSE7IjbAnJUggICAgICAgICAgnKBlAJQQgICAgICAgICAgICAgICAgICAgICAgICAiEIJQQglBCCUEIJQQglAQQglBCCUBBCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICD//2Q==" alt="Adega Black">
+  <div class="fb-spinner"></div>
+  <p id="fb-loading-msg">Verificando sessão...</p>
+</div>
+
+<div id="toast"></div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal">
+    <h2>Entrar</h2>
+    <label>E-mail</label><input type="email" id="login-email" placeholder="seu@email.com" autocomplete="email">
+    <label>Senha</label><input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
+    <label style="display:flex;align-items:center;gap:8px;margin-top:14px;cursor:pointer;color:var(--gray-light);font-size:14px;">
+      <input type="checkbox" id="login-remember" style="width:16px;height:16px;accent-color:var(--gold);cursor:pointer;"> Salvar login neste dispositivo
+    </label>
+    <button class="btn btn-gold btn-full" onclick="doLogin()">Entrar</button>
+    <p style="text-align:center;margin-top:12px;font-size:13px;color:var(--gray);">Não tem conta? <a href="file:///C:/Users/Nicolas/Downloads/adega-black-pipas_14.html#" onclick="openModal(&#39;modal-register&#39;);closeModal(&#39;modal-login&#39;)" style="color:var(--gold);">Cadastre-se</a></p>
+    <button onclick="closeModal(&#39;modal-login&#39;)" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;">✕</button>
+  </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div class="modal-overlay" id="modal-register">
+  <div class="modal">
+    <h2>Criar Conta</h2>
+    <label>Nome completo</label><input type="text" id="reg-name" placeholder="Seu nome" autocomplete="name">
+    <label>Telefone</label><input type="tel" id="reg-phone" placeholder="(19) 99999-9999" autocomplete="tel">
+    <label>E-mail</label><input type="email" id="reg-email" placeholder="seu@email.com" autocomplete="email">
+    <label>Senha</label><input type="password" id="reg-pass" placeholder="••••••••" autocomplete="new-password">
+    <label>Endereço de entrega</label><input type="text" id="reg-address" placeholder="Rua, número, bairro, cidade" autocomplete="street-address">
+    <button class="btn btn-gold btn-full" onclick="doRegister()">Criar Conta</button>
+    <button onclick="closeModal(&#39;modal-register&#39;)" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;">✕</button>
+  </div>
+</div>
+
+<!-- CART MODAL -->
+<div class="modal-overlay" id="modal-cart">
+  <div class="modal" style="max-width:560px;">
+    <h2>Meu Carrinho</h2>
+    <div id="cart-items-list"><div class="empty-state" style="padding:20px"><p>Carrinho vazio.</p></div></div>
+    <div class="cart-total"><span>Total</span><span id="cart-total-val">R$ 0,00</span></div>
+    <div style="margin-top:18px;">
+      <p style="color:var(--gray-light);font-size:14px;margin-bottom:8px;">Forma de pagamento:</p>
+      <div class="payment-grid">
+        <div class="pay-option" onclick="selectPayment(this,&#39;Dinheiro&#39;)">Dinheiro</div>
+        <div class="pay-option" onclick="selectPayment(this,&#39;Débito&#39;)">Débito</div>
+        <div class="pay-option" onclick="selectPayment(this,&#39;Crédito&#39;)">Crédito</div>
+        <div class="pay-option" onclick="selectPayment(this,&#39;PIX&#39;)">PIX</div>
+      </div>
+      <div id="pix-key-box" style="display:none;background:var(--dark3);border:1px solid var(--gold-dark);border-radius:8px;padding:12px 16px;margin-top:8px;">
+        <p style="font-size:12px;color:var(--gray);margin-bottom:4px;">Chave PIX do estabelecimento:</p>
+        <p id="pix-key-display" style="font-size:16px;font-weight:700;color:var(--gold);word-break:break-all;"></p>
+        <p style="font-size:11px;color:var(--gray);margin-top:4px;">Após o pagamento, envie o comprovante pelo WhatsApp.</p>
+      </div>
+    </div>
+    <div style="margin-top:12px;">
+      <p style="color:var(--gray-light);font-size:14px;margin-bottom:8px;">Entrega:</p>
+      <div class="pay-option" id="delivery-opt" onclick="selectDelivery()" style="text-align:left;padding:11px;margin-bottom:8px;">
+        <strong style="display:block;color:var(--white);">Entrega em domicílio</strong>
+        <div id="delivery-address-line" style="font-size:12px;color:var(--gray);margin-top:2px;"></div>
+        <div id="delivery-calc-status" style="margin-top:6px;font-size:13px;color:var(--gray);">Calculando distância...</div>
+      </div>
+      <div class="pay-option" id="pickup-opt" onclick="selectPickup()" style="text-align:left;padding:11px;">
+        <strong style="display:block;color:var(--white);">Retirar na loja — Grátis</strong>
+        <span style="font-size:12px;color:var(--gray);">R. Wilson Roberto Nilsen, 486</span>
+      </div>
+    </div>
+    <button class="btn btn-gold btn-full" onclick="finalizarPedido()">Confirmar Pedido</button>
+    <button onclick="closeModal(&#39;modal-cart&#39;)" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;">✕</button>
+  </div>
+</div>
+
+<!-- ADD PRODUCT MODAL -->
+<div class="modal-overlay" id="modal-add-product">
+  <div class="modal" style="max-width:540px;" autocomplete="off">
+    <h2 id="add-product-title">Adicionar Produto</h2>
+    <label>Foto do produto</label>
+    <div id="photo-preview" style="width:100%;height:150px;background:var(--dark3);border:2px dashed var(--dark4);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;overflow:hidden;cursor:pointer;" onclick="document.getElementById(&#39;prod-photo-input&#39;).click()">
+      <span id="photo-preview-text" style="color:var(--gray);font-size:13px;text-align:center;">Clique para adicionar foto<br><span style="font-size:11px;">JPG, PNG</span></span>
+      <img id="photo-preview-img" src="file:///C:/Users/Nicolas/Downloads/adega-black-pipas_14.html" style="display:none;width:100%;height:100%;object-fit:cover;">
+    </div>
+    <input type="file" id="prod-photo-input" accept="image/*" style="display:none;" onchange="handlePhotoUpload(event)">
+    <button id="photo-remove-btn" onclick="removePhoto()" style="display:none;background:none;border:none;color:var(--red);font-size:12px;cursor:pointer;margin-bottom:6px;">✕ Remover foto</button>
+    <label>Nome</label><input type="text" id="prod-name" placeholder="Nome do produto">
+    <label>Descrição / combinação</label><input type="text" id="prod-desc" placeholder="Ex: Com gelo, limão, etc.">
+    <label>Preço (R$)</label><input type="text" id="prod-price" placeholder="0,00" inputmode="numeric" autocomplete="off" autocorrect="off" spellcheck="false" style="font-size:18px;font-weight:700;color:var(--gold);letter-spacing:1px;" oninput="formatPriceInput(this)" onkeydown="handlePriceKey(event,this)">
+    <label>Estoque</label><input type="number" id="prod-stock" placeholder="0">
+    <label>Alertar quando abaixo de</label><input type="number" id="prod-alert" placeholder="5">
+    <label>Ícone/Emoji (opcional, se não tiver foto)</label><input type="text" id="prod-emoji" placeholder="ex: estrela, coração...">
+    <input type="hidden" id="prod-category"><input type="hidden" id="prod-edit-id"><input type="hidden" id="prod-photo-data">
+    <button class="btn btn-gold btn-full" onclick="saveProduct()">Salvar Produto</button>
+    <button onclick="closeModal(&#39;modal-add-product&#39;)" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;">✕</button>
+  </div>
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div class="modal-overlay" id="modal-order-detail">
+  <div class="modal" style="max-width:500px;">
+    <h2>Detalhes do Pedido</h2>
+    <div id="order-detail-content"></div>
+    <button onclick="closeModal(&#39;modal-order-detail&#39;)" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;">✕</button>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="modal-overlay" id="modal-product-detail">
+  <div class="modal" style="max-width:480px;padding:0;overflow:hidden;">
+    <!-- Photo -->
+    <div id="pd-photo" style="width:100%;height:240px;background:var(--dark3);display:flex;align-items:center;justify-content:center;font-size:72px;overflow:hidden;flex-shrink:0;"></div>
+    <!-- Info -->
+    <div style="padding:22px 24px 24px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px;">
+        <h2 id="pd-name" style="font-family:&#39;Playfair Display&#39;,serif;color:var(--gold);font-size:22px;margin:0;"></h2>
+        <span id="pd-price" style="color:var(--gold);font-size:22px;font-weight:700;white-space:nowrap;"></span>
+      </div>
+      <p id="pd-desc" style="color:var(--gray-light);font-size:15px;margin-bottom:14px;line-height:1.5;"></p>
+      <p id="pd-stock" style="font-size:13px;margin-bottom:18px;"></p>
+      <!-- Qty selector -->
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px;">
+        <span style="color:var(--gray-light);font-size:14px;">Quantidade:</span>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="qty-btn" onclick="pdChangeQty(-1)">−</button>
+          <span id="pd-qty" style="font-size:18px;font-weight:700;min-width:24px;text-align:center;">1</span>
+          <button class="qty-btn" onclick="pdChangeQty(1)">+</button>
+        </div>
+        <span id="pd-subtotal" style="color:var(--gold);font-weight:700;font-size:16px;margin-left:auto;"></span>
+      </div>
+      <button id="pd-add-btn" class="btn btn-gold btn-full" style="margin-top:0;" onclick="pdAddToCart()">Adicionar ao Carrinho</button>
+    </div>
+    <button onclick="closeModal(&#39;modal-product-detail&#39;)" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.5);border:none;color:#fff;font-size:18px;cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
+  </div>
+</div>
+
+
+<!-- TOPBAR -->
+<div id="topbar">
+  <button id="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+  <div class="address-info"><span>R. Wilson Roberto Nilsen, 486 — Sorocaba, SP</span></div>
+  <div id="user-info" style="display:none;align-items:center;gap:10px;">
+    <span id="user-name-display" style="color:var(--gold-light);font-size:13px;"></span>
+    <button class="btn btn-outline btn-sm" onclick="doLogout()">Sair</button>
+  </div>
+  <div id="guest-buttons" style="display:flex;gap:8px;">
+    <button class="btn btn-outline btn-sm" onclick="openModal(&#39;modal-login&#39;)">Entrar</button>
+    <button class="btn btn-gold btn-sm" onclick="openModal(&#39;modal-register&#39;)">Cadastrar</button>
+  </div>
+</div>
+
+<div id="layout">
+  <div id="sidebar">
+    <div id="sidebar-logo">
+      <img src="data:image/jpeg;base64,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HdLlU3Kd16qJXVgnLpPMdbX5GdOPKORgny4H0Xr5sdP30jv+eLnFa015ZXa219Jb4oJqzzVcYaymoaZxD4SR+LWCCDznO/ZeXanNvp5vpn69Pou1aZ1HfxdOyMqaqqkut3eGvYSRBNMaZ0be2ksGD9RyqM0xfpE9PTqZiUTqleSveVT696xe2oMVNS0hmcDh0lUaoxDscEkA+n7L0OD4SLz5WZ17I1v392bLk5I5Ij5/4jo8se4uJJOSeSvbZGKAglpQdazXitskrprdM2NzwNQdG14djjYj9lTmwY81eW8bj4Oq2mvWHoFJ7SYLhB4N68RshYA+tqG6yB3bGxjQAT6n7k8Lyc/6dk3zU6+iO3xme7TizxWY30fC7UNumiElpqDnQNcPiAluSC2JwBwXE4JaM7/3jHbLS2rxv16+Mx92nmx3jcdJcMXSgoqVlBWNdVvaP4jCAI9WonGSRx9MLT/T5b38rSeX69nE58VccUtG33b1N4tWZvfaeCJrNEYLJJMb5JwACSdt+Bhcx+n1inLr2+H3czxt5vzerT7VnWUjnh3vZqXNbhrmxODQDzgO+gVdP0ysRqK696Y4ud7nv7GhZOpRamPjhfVODySXPGojPocq/PwXlrRaYjo5xcTGOOWs93bqOpKSooHB15ayplBbpfRO2yOS7LQFnx/p8ReJ5ekev/a2/FTNO/X2OJN1Exs1CQ6NzaR+HGCQkujIwW4cG5Owx2WmvBdLx/2+vuVTxkzNJ1+1uOjp7xVx1tukLGyDTID5HawOM/1NyMZ7KiOfBXkyR298fkSunyWSeeJ7u5Fd+numxHLFNHVyOZ/JK0vjmA/AcZcx4O24xx6nGf8Ap+Jz9Lf69frifU4vmpWsxVxb77QrrdQ2noZp4KXSW+FOI5XMz6O05x9cn5r0MPAUrqcnWY9G4+TJOTfZSJtLAGgAkei9BU1sqUCAgIMmnfdBuQSjTh2D9Vzp0zY6HWS9mMbgN4ypmZOjGSBuNTW4GAUNMqaNrs7HP9ioH2L4x5NII/MeUSlpDHHGOMgIh8XZlJadv8IPm6EbDnHdSaZNjYyM5BIzn7ptGmTTEx2rSGu9OU6yl8Z6jXx+gREy1CT6qUIQEBAQEEhxCDNshbuFGjb6GcluCThE7G1BaMDKG2bJQc6u6JZOmaCCw745UDEzdyd1I+fjY4PCI2zdUFzRvuht8HSE7IjbAnJUggICAgICAgICAgnKBlAJQQgICAgICAgICAgICAgICAgICAgICAgICAiEIJQQglBCCUEIJQQglAQQglBCCUBBCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICD//2Q==" alt="Adega Black Pipas">
+    </div>
+    <nav id="main-nav">
+      <button class="active" onclick="showSection(&#39;sinuca&#39;)">🎱 Sinuca</button>
+      <button onclick="showSection(&#39;copao&#39;)">Copão</button>
+      <button onclick="showSection(&#39;copao-gourmet&#39;)">Copão Gourmet</button>
+      <button onclick="showSection(&#39;cervejas&#39;)">Cervejas</button>
+      <button onclick="showSection(&#39;doses&#39;)">Doses</button>
+      <button onclick="showSection(&#39;licores&#39;)">Licores</button>
+      <button onclick="showSection(&#39;sorvetes&#39;)">Sorvetes</button>
+      <button onclick="showSection(&#39;porcoes&#39;)">Porções</button>
+      <button onclick="showSection(&#39;salgados&#39;)">Salgados &amp; Frios</button>
+      <button onclick="showSection(&#39;gelos&#39;)">Gelos</button>
+      <button onclick="showSection(&#39;narguile&#39;)">Narguile</button>
+      <button onclick="showSection(&#39;cigarros&#39;)">Cigarros</button>
+      <button onclick="showSection(&#39;outros&#39;)">Outros Itens</button>
+      <div class="nav-sep"></div>
+      <button onclick="showSection(&#39;painel&#39;)" id="owner-nav-btn" style="display:none;">⚙️ Painel do Dono</button>
+    </nav>
+  </div>
+  <div id="content">
+
+    <section class="section" id="sec-copao">
+      <div class="section-header"><h2>Copão &amp; Bebidas</h2><span style="color:var(--gray);font-size:14px;" id="copao-count">0 itens</span></div>
+      <div class="product-grid" id="grid-copao"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+    </section>
+
+    <section class="section" id="sec-copao-gourmet">
+      <div class="section-header"><h2>Copão Gourmet</h2><span style="color:var(--gray);font-size:14px;" id="copao-gourmet-count">0 itens</span></div>
+      <div class="product-grid" id="grid-copao-gourmet"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+    </section>
+
+    <section class="section" id="sec-cervejas">
+      <div class="section-header"><h2>Cervejas</h2></div>
+      <div class="sub-tabs">
+        <button class="sub-tab active" onclick="showSubTab(&#39;cerv&#39;,&#39;600ml&#39;)">600ml</button>
+        <button class="sub-tab" onclick="showSubTab(&#39;cerv&#39;,&#39;gorducha&#39;)">Gorduchinhas</button>
+        <button class="sub-tab" onclick="showSubTab(&#39;cerv&#39;,&#39;lata&#39;)">Lata</button>
+        <button class="sub-tab" onclick="showSubTab(&#39;cerv&#39;,&#39;vidro&#39;)">Vidro</button>
+        <button class="sub-tab" onclick="showSubTab(&#39;cerv&#39;,&#39;fardo&#39;)">Fardos</button>
+      </div>
+      <div class="sub-panel active" id="cerv-600ml">
+        <span style="color:var(--gray);font-size:13px;" id="cervejas-600ml-count">0 itens</span>
+        <div class="product-grid" id="grid-cervejas-600ml" style="margin-top:10px;"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+      </div>
+      <div class="sub-panel" id="cerv-gorducha">
+        <span style="color:var(--gray);font-size:13px;" id="cervejas-gorducha-count">0 itens</span>
+        <div class="product-grid" id="grid-cervejas-gorducha" style="margin-top:10px;"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+      </div>
+      <div class="sub-panel" id="cerv-lata">
+        <span style="color:var(--gray);font-size:13px;" id="cervejas-lata-count">0 itens</span>
+        <div class="product-grid" id="grid-cervejas-lata" style="margin-top:10px;"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+      </div>
+      <div class="sub-panel" id="cerv-vidro">
+        <span style="color:var(--gray);font-size:13px;" id="cervejas-vidro-count">0 itens</span>
+        <div class="product-grid" id="grid-cervejas-vidro" style="margin-top:10px;"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+      </div>
+      <div class="sub-panel" id="cerv-fardo">
+        <span style="color:var(--gray);font-size:13px;" id="cervejas-fardo-count">0 itens</span>
+        <div class="product-grid" id="grid-cervejas-fardo" style="margin-top:10px;"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="sec-doses">
+      <div class="section-header"><h2>Doses</h2><span style="color:var(--gray);font-size:14px;" id="doses-count">0 itens</span></div>
+      <div class="product-grid" id="grid-doses"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+    </section>
+
+    <section class="section" id="sec-licores">
+      <div class="section-header"><h2>Licores</h2><span style="color:var(--gray);font-size:14px;" id="licores-count">0 itens</span></div>
+      <div class="product-grid" id="grid-licores"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+    </section>
+
+    <section class="section" id="sec-sorvetes">
+      <div class="section-header"><h2>Sorvetes</h2></div>
+      <div class="sub-tabs">
+        <button class="sub-tab active" onclick="showSubTab(&#39;sorv&#39;,&#39;picole&#39;)">Picolé</button>
+        <button class="sub-tab" onclick="showSubTab(&#39;sorv&#39;,&#39;massa&#39;)">De massa (pote)</button>
+      </div>
+      <div class="sub-panel active" id="sorv-picole">
+        <span style="color:var(--gray);font-size:13px;" id="sorvetes-picole-count">0 itens</span>
+        <div class="product-grid" id="grid-sorvetes-picole" style="margin-top:10px;"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+      </div>
+      <div class="sub-panel" id="sorv-massa">
+        <span style="color:var(--gray);font-size:13px;" id="sorvetes-massa-count">0 itens</span>
+        <div class="product-grid" id="grid-sorvetes-massa" style="margin-top:10px;"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="sec-porcoes">
+      <div class="section-header"><h2>Porções</h2><span style="color:var(--gray);font-size:14px;" id="porcoes-count">0 itens</span></div>
+      <div class="product-grid" id="grid-porcoes"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+    </section>
+
+    <section class="section" id="sec-salgados">
+      <div class="section-header"><h2>Salgados &amp; Frios</h2><span style="color:var(--gray);font-size:14px;" id="salgados-count">0 itens</span></div>
+      <div class="product-grid" id="grid-salgados"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+    </section>
+
+    <section class="section" id="sec-gelos">
+      <div class="section-header"><h2>Gelos</h2><span style="color:var(--gray);font-size:14px;" id="gelos-count">0 itens</span></div>
+      <div class="product-grid" id="grid-gelos"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+    </section>
+
+    <section class="section" id="sec-outros">
+      <div class="section-header"><h2>Outros Itens</h2><span style="color:var(--gray);font-size:14px;" id="outros-count">0 itens</span></div>
+      <div class="product-grid" id="grid-outros"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+    </section>
+
+    <section class="section active" id="sec-sinuca">
+      <div class="section-header"><h2>🎱 Sinuca</h2></div>
+      <div style="max-width:620px;">
+        <div style="background:var(--dark2);border:1px solid var(--gold-dark);border-radius:16px;overflow:hidden;">
+          <div style="background:linear-gradient(135deg,#0a3d0a,#145214);padding:28px;text-align:center;">
+            <div style="font-size:64px;margin-bottom:8px;">🎱</div>
+            <h3 style="font-family:&#39;Playfair Display&#39;,serif;color:var(--gold);font-size:26px;">Mesa de Sinuca</h3>
+            <p style="color:var(--gold-light);font-size:14px;margin-top:4px;letter-spacing:2px;text-transform:uppercase;">Disponível aqui na Adega Black!</p>
+          </div>
+          <div style="padding:24px;">
+            <div style="background:var(--dark3);border:1px solid var(--dark4);border-radius:10px;padding:18px 22px;margin-bottom:16px;display:flex;align-items:center;gap:14px;">
+              <span style="font-size:34px;">🪙</span>
+              <p style="font-size:20px;font-weight:700;color:var(--white);">Ficha — <span style="color:var(--gold);font-size:24px;">R$ 3,00</span></p>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+              <div style="background:var(--dark3);border:1px solid var(--dark4);border-radius:8px;padding:12px;text-align:center;">
+                <div style="font-size:22px;margin-bottom:4px;"></div>
+                <p style="font-size:12px;color:var(--gray-light);">No horário de funcionamento</p>
+              </div>
+              <div style="background:var(--dark3);border:1px solid var(--dark4);border-radius:8px;padding:12px;text-align:center;">
+                <div style="font-size:22px;margin-bottom:4px;"></div>
+                <p style="font-size:12px;color:var(--gray-light);">R. Wilson Roberto Nilsen, 486</p>
+              </div>
+              <div style="background:var(--dark3);border:1px solid var(--dark4);border-radius:8px;padding:12px;text-align:center;grid-column:1/-1;">
+                <div style="font-size:22px;margin-bottom:4px;"></div>
+                <p style="font-size:12px;color:var(--gray-light);">Aproveite com uma bebida gelada!</p>
+              </div>
+            </div>
+            <div style="background:rgba(201,168,76,0.08);border:1px solid var(--gold-dark);border-radius:8px;padding:12px 16px;text-align:center;">
+              <p style="color:var(--gold-light);font-size:13px;line-height:1.6;">🎱 Venha nos visitar e aproveite uma boa partida de sinuca com os amigos enquanto curte as melhores bebidas da Adega Black!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sec-narguile">
+      <div class="section-header"><h2>Narguile</h2></div>
+      <div class="sub-tabs">
+        <button class="sub-tab active" onclick="showSubTab(&#39;narguile&#39;,&#39;essencias&#39;)">Essências</button>
+      </div>
+      <div class="sub-panel active" id="narguile-essencias">
+        <span style="color:var(--gray);font-size:13px;" id="narguile-essencias-count">0 itens</span>
+        <div class="product-grid" id="grid-narguile-essencias" style="margin-top:10px;"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="sec-cigarros">
+      <div class="section-header"><h2>Cigarros</h2><span style="color:var(--gray);font-size:14px;" id="cigarros-count">0 itens</span></div>
+      <div class="product-grid" id="grid-cigarros"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div></div>
+    </section>
+
+    <section class="section" id="sec-painel">
+      <div class="section-header"><h2>⚙️ Painel do Dono</h2></div>
+      <div class="stats-row" id="owner-stats"></div>
+      <div id="stock-alerts-container"></div>
+      <div class="inner-tabs">
+        <button class="inner-tab active" onclick="showInner(&#39;pedidos&#39;)">Pedidos</button>
+        <button class="inner-tab" onclick="showInner(&#39;estoque&#39;)">Produtos</button>
+        <button class="inner-tab" onclick="showInner(&#39;entrega&#39;)">Entrega</button>
+        <button class="inner-tab" onclick="showInner(&#39;backup&#39;)">💾 Backup</button>
+      </div>
+      <div class="inner-panel active" id="inner-pedidos">
+        <div class="owner-section"><h3>Pedidos Recebidos</h3><div id="orders-container"><div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum pedido ainda.</p></div></div></div>
+      </div>
+      <div class="inner-panel" id="inner-estoque">
+        <div class="owner-section">
+          <h3>Gerenciar Produtos</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;copao&#39;)">+ Copão</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;copao-gourmet&#39;)">+ Copão Gourmet</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;cervejas-600ml&#39;)">+ Cerv. 600ml</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;cervejas-gorducha&#39;)">+ Gorducha</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;cervejas-lata&#39;)">+ Cerv. Lata</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;cervejas-vidro&#39;)">+ Cerv. Vidro</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;cervejas-fardo&#39;)">+ Cerv. Fardo</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;doses&#39;)">+ Dose</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;licores&#39;)">+ Licor</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;sorvetes-picole&#39;)">+ Picolé</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;sorvetes-massa&#39;)">+ Sorvete Massa</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;porcoes&#39;)">+ Porção</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;salgados&#39;)">+ Salgado</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;gelos&#39;)">+ Gelo</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;outros&#39;)">+ Outro</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;narguile-essencias&#39;)">+ Essência</button>
+            <button class="btn btn-gold btn-sm" onclick="openAddProduct(&#39;cigarros&#39;)">+ Cigarro</button>
+          </div>
+          <div id="stock-list"></div>
+        </div>
+      </div>
+      <div class="inner-panel" id="inner-entrega">
+        <div class="owner-section">
+          <h3>Configurar Taxa de Entrega</h3>
+          <p style="color:var(--gray);font-size:14px;margin-bottom:14px;">Defina o valor por KM para entregas.</p>
+          <div class="form-row">
+            <div class="form-group"><label>Valor por KM (R$)</label><input type="number" id="km-price" step="0.10" value="2.00"></div>
+            <div class="form-group"><label>Taxa mínima (R$)</label><input type="number" id="min-fee" step="0.50" value="5.00"></div>
+          </div>
+          <div class="form-group"><label>Distância máxima (KM)</label><input type="number" id="max-km" value="10"></div>
+          <button class="btn btn-gold" onclick="saveDeliveryConfig()">Salvar</button>
+          <div class="delivery-info" style="margin-top:14px;" id="delivery-preview"><strong>Config atual:</strong> R$ 2,00/km · Mín. R$ 5,00 · Máx. 10km</div>
+        </div>
+        <div class="owner-section">
+          <h3>Chave PIX</h3>
+          <p style="color:var(--gray);font-size:14px;margin-bottom:14px;">Esta chave será exibida ao cliente quando ele escolher pagar por PIX.</p>
+          <div class="form-group">
+            <label>Chave PIX (CPF, telefone, e-mail ou chave aleatória)</label>
+            <input type="text" id="pix-key-input" placeholder="Ex: 11999999999 ou dono@email.com">
+          </div>
+          <button class="btn btn-gold" onclick="savePixKey()">Salvar Chave PIX</button>
+          <div id="pix-key-preview" style="display:none;margin-top:12px;" class="delivery-info">
+            <strong>Chave atual:</strong> <span id="pix-key-current" style="color:var(--gold);"></span>
+          </div>
+        </div>
+      </div>
+      <div class="inner-panel" id="inner-backup">
+        <div class="owner-section">
+          <h3>💾 Exportar Dados</h3>
+          <p style="color:var(--gray);font-size:14px;margin-bottom:16px;">Salve todos os produtos, pedidos e configurações num arquivo. Use isso <strong style="color:var(--gold-light);">antes de abrir uma versão nova do site</strong> para não perder nada.</p>
+          <button class="btn btn-gold" onclick="exportarDados()">⬇️ Exportar Backup</button>
+        </div>
+        <div class="owner-section">
+          <h3>📂 Importar Dados</h3>
+          <p style="color:var(--gray);font-size:14px;margin-bottom:16px;">Após abrir uma versão nova do site, importe o arquivo de backup para restaurar tudo exatamente como estava.</p>
+          <label style="display:inline-block;padding:10px 22px;background:var(--gold);color:var(--black);border-radius:6px;font-family:&#39;Crimson Pro&#39;,serif;font-size:15px;font-weight:600;cursor:pointer;">
+            ⬆️ Importar Backup
+            <input type="file" accept=".json" onchange="importarDados(event)" style="display:none;">
+          </label>
+          <p id="import-status" style="margin-top:12px;font-size:13px;color:var(--green);display:none;"></p>
+        </div>
+        <div class="owner-section" style="background:rgba(201,168,76,0.05);border-color:var(--gold-dark);">
+          <h3 style="color:var(--gold-light);font-size:15px;">📖 Como usar</h3>
+          <ol style="color:var(--gray-light);font-size:13px;line-height:2;padding-left:18px;">
+            <li>Antes de receber um site atualizado, clique em <strong style="color:var(--white);">Exportar Backup</strong></li>
+            <li>Um arquivo <code style="color:var(--gold);">adega-black-backup.json</code> será baixado</li>
+            <li>Abra o novo arquivo do site normalmente</li>
+            <li>Vá em Painel do Dono → Backup → <strong style="color:var(--white);">Importar Backup</strong></li>
+            <li>Selecione o arquivo baixado — tudo volta como estava!</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+</div>
+
+<button id="cart-btn" onclick="openModal(&#39;modal-cart&#39;)" style="display: none;"> Carrinho <span id="cart-badge">0</span></button>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc, deleteDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCVcFZIbJ1cfpdaItYOXYJJLLSA8nx_cn4",
+  authDomain: "adega-black.firebaseapp.com",
+  projectId: "adega-black",
+  storageBucket: "adega-black.firebasestorage.app",
+  messagingSenderId: "412190920232",
+  appId: "1:412190920232:web:f26f6bd8278d231751af1d"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// PRICE INPUT
+window.formatPriceInput = function(input) {
+  var digits = input.value.replace(/\D/g, '');
+  while (digits.length < 3) digits = '0' + digits;
+  input.value = digits.slice(0,-2).replace(/^0+/,'') || '0' + ',' + digits.slice(-2);
+};
+window.handlePriceKey = function(e, input) {
+  if ([8,9,37,38,39,40,46].indexOf(e.keyCode) !== -1) return;
+  if (e.key < '0' || e.key > '9') { e.preventDefault(); return; }
+  e.preventDefault();
+  var digits = input.value.replace(/\D/g,'') + e.key;
+  if (digits.length > 8) return;
+  while (digits.length < 3) digits = '0' + digits;
+  var reais = digits.slice(0,-2).replace(/^0+/,'') || '0';
+  input.value = reais + ',' + digits.slice(-2);
+};
+function getPriceValue(input) {
+  return parseFloat((input.value||'').replace(/\./g,'').replace(',','.')) || 0;
+}
+
+// SECURITY
+function sanitize(str) {
+  if (typeof str !== 'string') return '';
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');
+}
+function stripScripts(str) {
+  if (typeof str !== 'string') return '';
+  return str.replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi,'').replace(/javascript:/gi,'').replace(/on\w+\s*=/gi,'');
+}
+function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.trim()); }
+function isValidPhone(p) { return /^[\d\s\(\)\-\+]{7,20}$/.test(p.trim()); }
+function isStrongPassword(p) { return p.length >= 8; }
+function isValidPrice(v) { var n=parseFloat(v); return !isNaN(n)&&n>=0&&n<100000; }
+function isValidStock(v) { var n=parseInt(v); return !isNaN(n)&&n>=0&&n<100000; }
+var _loginAttempts=0, _loginLockUntil=0;
+function checkLoginRateLimit() {
+  var now=Date.now();
+  if(now<_loginLockUntil){ showToast('Muitas tentativas. Aguarde '+Math.ceil((_loginLockUntil-now)/1000)+'s.','error'); return false; }
+  return true;
+}
+function recordLoginFailure() {
+  _loginAttempts++;
+  if(_loginAttempts>=5){ _loginLockUntil=Date.now()+60000; _loginAttempts=0; }
+}
+function hashPassword(pass) {
+  var h=2166136261;
+  for(var i=0;i<pass.length;i++){ h^=pass.charCodeAt(i); h=(h*16777619)>>>0; }
+  return h.toString(16);
+}
+function generateToken() {
+  var arr=new Uint8Array(24); window.crypto.getRandomValues(arr);
+  return Array.from(arr).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+var _sessionToken=null;
+function createSession(){ _sessionToken=generateToken(); try{ sessionStorage.setItem('adega_session',_sessionToken); }catch(e){} }
+function destroySession(){ _sessionToken=null; try{ sessionStorage.removeItem('adega_session'); }catch(e){} }
+function requireOwner(){
+  if(!state.currentUser||!state.isOwner){ showToast('Acesso negado.','error'); return false; }
+  if(!_sessionToken){ showToast('Sessão inválida. Faça login novamente.','error'); doLogout(); return false; }
+  return true;
+}
+var VALID_CATS=['copao','copao-gourmet','cervejas-600ml','cervejas-gorducha','cervejas-lata','cervejas-vidro','cervejas-fardo','doses','licores','sorvetes-picole','sorvetes-massa','porcoes','salgados','gelos','narguile-essencias','cigarros','outros'];
+function isValidCat(cat){ return VALID_CATS.indexOf(cat)!==-1; }
+
+// STATE
+var state = {
+  currentUser:null, isOwner:false, cart:[],
+  selectedPayment:null, deliveryMode:null, deliveryFee:0, deliveryKm:0,
+  deliveryConfig:{kmPrice:2.00,minFee:5.00,maxKm:10,pixKey:''},
+  products:{}, nextProductId:100
+};
+var ALL_CATS=['copao','copao-gourmet','cervejas-600ml','cervejas-gorducha','cervejas-lata','cervejas-vidro','cervejas-fardo','doses','licores','sorvetes-picole','sorvetes-massa','porcoes','salgados','gelos','narguile-essencias','cigarros','outros'];
+
+// HELPERS
+function showToast(msg,type){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.className=type?('show '+type):'show';
+  setTimeout(()=>t.className='',3200);
+}
+function formatBRL(v){ return 'R$ '+Number(v).toFixed(2).replace('.',','); }
+function openModal(id){
+  document.getElementById(id).classList.add('active');
+  if(id==='modal-cart') calcDeliveryAuto();
+}
+function closeModal(id){ document.getElementById(id).classList.remove('active'); }
+window.closeModal=closeModal; window.openModal=openModal;
+function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
+window.toggleSidebar=toggleSidebar;
+function setLoadingMsg(msg){ var el=document.getElementById('fb-loading-msg'); if(el) el.textContent=msg; }
+function showLoading(msg){ setLoadingMsg(msg||'Carregando...'); document.getElementById('fb-loading').style.display='flex'; }
+function hideLoading(){ document.getElementById('fb-loading').style.display='none'; }
+
+// FIREBASE OPERATIONS
+async function fbLoadConfig(){
+  try{
+    const snap=await getDoc(doc(db,'config','main'));
+    if(snap.exists()){ const d=snap.data(); state.deliveryConfig=d.deliveryConfig||state.deliveryConfig; state.nextProductId=d.nextProductId||100; }
+  }catch(e){ console.error('loadConfig',e); }
+}
+async function fbSaveConfig(){
+  try{ await setDoc(doc(db,'config','main'),{deliveryConfig:state.deliveryConfig,nextProductId:state.nextProductId,updatedAt:serverTimestamp()}); }
+  catch(e){ showToast('Erro ao salvar configuração.','error'); }
+}
+async function fbLoadProducts(){
+  try{
+    ALL_CATS.forEach(c=>state.products[c]=[]);
+    const snap=await getDocs(collection(db,'products'));
+    snap.forEach(d=>{ const p={id:d.id,...d.data()}; const cat=p.category; if(cat&&state.products[cat]) state.products[cat].push(p); });
+  }catch(e){ console.error('loadProducts',e); }
+}
+async function fbSaveProduct(product,cat){
+  try{
+    const data={...product,category:cat,updatedAt:serverTimestamp()}; delete data.id;
+    if(product.id&&typeof product.id==='string'&&product.id.length>5){
+      await setDoc(doc(db,'products',product.id),data); return product.id;
+    } else {
+      const ref=await addDoc(collection(db,'products'),data); return ref.id;
+    }
+  }catch(e){ showToast('Erro ao salvar produto.','error'); return null; }
+}
+async function fbDeleteProduct(id){ try{ await deleteDoc(doc(db,'products',id)); }catch(e){ showToast('Erro ao remover.','error'); } }
+async function fbLoadUsers(){
+  try{ var u=[]; const snap=await getDocs(collection(db,'users')); snap.forEach(d=>u.push({id:d.id,...d.data()})); return u; }
+  catch(e){ console.error('loadUsers',e); return []; }
+}
+async function fbSaveUser(user){
+  try{
+    const data={...user}; delete data.id;
+    if(user.id){ await setDoc(doc(db,'users',user.id),data); return user; }
+    else{ const ref=await addDoc(collection(db,'users'),data); user.id=ref.id; return user; }
+  }catch(e){ showToast('Erro ao salvar usuário.','error'); return null; }
+}
+async function fbLoadOrders(){
+  try{ var o=[]; const snap=await getDocs(collection(db,'orders')); snap.forEach(d=>o.push({id:d.id,...d.data()})); o.sort((a,b)=>(b.ts||0)-(a.ts||0)); return o; }
+  catch(e){ return []; }
+}
+async function fbSaveOrder(order){
+  try{ const data={...order,ts:Date.now()}; delete data.id; const ref=await addDoc(collection(db,'orders'),data); order.id=ref.id; return order; }
+  catch(e){ showToast('Erro ao salvar pedido.','error'); return null; }
+}
+async function fbUpdateOrderStatus(id,status){ try{ await updateDoc(doc(db,'orders',id),{status,updatedAt:serverTimestamp()}); }catch(e){ showToast('Erro ao atualizar.','error'); } }
+
+function listenOrders(){
+  if(!state.isOwner) return;
+  onSnapshot(collection(db,'orders'),snap=>{
+    snap.docChanges().forEach(change=>{
+      if(change.type==='added'){
+        const o={id:change.doc.id,...change.doc.data()};
+        if(o.ts&&Date.now()-o.ts<10000){
+          showToast('Novo pedido de '+sanitize(o.customer||'cliente')+'!','success');
+          if(document.getElementById('sec-painel').classList.contains('active')) renderOwnerPanel();
+        }
+      }
+    });
+  });
+}
+
+// INIT
+async function initApp(){
+  showLoading('Carregando produtos...');
+  await fbLoadProducts();
+  setLoadingMsg('Carregando configurações...');
+  await fbLoadConfig();
+  setLoadingMsg('Verificando sessão...');
+  await tryAutoLogin();
+  renderProducts(); updateCartUI(); updateDeliveryPreview();
+  hideLoading();
+}
+
+// NAV
+function showSection(name){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('#main-nav button').forEach(b=>b.classList.remove('active'));
+  var sec=document.getElementById('sec-'+name); if(sec) sec.classList.add('active');
+  document.querySelectorAll('#main-nav button').forEach(b=>{ if((b.getAttribute('onclick')||'').indexOf("'"+name+"'")!==-1) b.classList.add('active'); });
+  if(name==='painel') renderOwnerPanel();
+  document.getElementById('sidebar').classList.remove('open');
+}
+window.showSection=showSection;
+function showSubTab(group,sub){
+  document.querySelectorAll('.sub-panel[id^="'+group+'-"]').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sub-tab').forEach(t=>{
+    if((t.getAttribute('onclick')||'').indexOf("'"+sub+"'")!==-1) t.classList.add('active');
+    else if((t.getAttribute('onclick')||'').indexOf("'"+group+"'")!==-1) t.classList.remove('active');
+  });
+  var target=document.getElementById(group+'-'+sub); if(target) target.classList.add('active');
+}
+window.showSubTab=showSubTab;
+function showInner(name){
+  document.querySelectorAll('.inner-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.inner-tab').forEach(t=>t.classList.remove('active'));
+  var panel=document.getElementById('inner-'+name); if(panel) panel.classList.add('active');
+  document.querySelectorAll('.inner-tab').forEach(t=>{ if((t.getAttribute('onclick')||'').indexOf("'"+name+"'")!==-1) t.classList.add('active'); });
+  if(name==='estoque') renderStockList();
+}
+window.showInner=showInner;
+
+// AUTH
+async function tryAutoLogin(){
+  try{
+    var saved=sessionStorage.getItem('adega_saved_login')||localStorage.getItem('adega_saved_login');
+    if(!saved) return;
+    var creds=JSON.parse(saved);
+    var users=await fbLoadUsers();
+    var user=users.find(u=>u.email===creds.email&&u.passHash===creds.passHash);
+    if(user){ state.currentUser=user; state.isOwner=!!user.isOwner; createSession(); updateAuthUI(); if(state.isOwner){ document.getElementById('owner-nav-btn').style.display=''; listenOrders(); } showToast('Bem-vindo de volta, '+sanitize(user.name)+'!','success'); }
+    else localStorage.removeItem('adega_saved_login');
+  }catch(e){ console.error('autoLogin',e); }
+}
+window.doLogin=async function(){
+  if(!checkLoginRateLimit()) return;
+  var email=document.getElementById('login-email').value.trim().toLowerCase();
+  var pass=document.getElementById('login-pass').value;
+  var remember=document.getElementById('login-remember').checked;
+  if(!isValidEmail(email)){ showToast('E-mail inválido.','error'); return; }
+  if(!pass){ showToast('Digite sua senha.','error'); return; }
+  var passHash=hashPassword(pass);
+  showLoading('Verificando...');
+  var users=await fbLoadUsers();
+  hideLoading();
+  var user=users.find(u=>u.email===email&&(u.passHash===passHash||(u.pass&&u.pass===pass)));
+  if(!user){ recordLoginFailure(); showToast('E-mail ou senha inválidos.','error'); document.getElementById('login-pass').value=''; return; }
+  if(user.pass){ user.passHash=hashPassword(user.pass); delete user.pass; await fbSaveUser(user); }
+  state.currentUser=user; state.isOwner=!!user.isOwner; createSession();
+  var creds=JSON.stringify({email,passHash});
+  if(remember){ try{ localStorage.setItem('adega_saved_login',creds); }catch(e){} }
+  else { try{ localStorage.removeItem('adega_saved_login'); }catch(e){} }
+  updateAuthUI(); closeModal('modal-login');
+  showToast('Bem-vindo, '+sanitize(user.name)+'!','success');
+  if(state.isOwner){ document.getElementById('owner-nav-btn').style.display=''; listenOrders(); }
+};
+window.doLogout=function(){
+  destroySession(); try{ localStorage.removeItem('adega_saved_login'); }catch(e){}
+  state.currentUser=null; state.isOwner=false; state.cart=[];
+  updateAuthUI(); updateCartUI();
+  document.getElementById('owner-nav-btn').style.display='none';
+  showSection('sinuca'); showToast('Você saiu da conta.');
+};
+window.doRegister=async function(){
+  var name=stripScripts(document.getElementById('reg-name').value.trim());
+  var phone=document.getElementById('reg-phone').value.trim();
+  var email=document.getElementById('reg-email').value.trim().toLowerCase();
+  var pass=document.getElementById('reg-pass').value;
+  var addr=stripScripts(document.getElementById('reg-address').value.trim());
+  if(!name||name.length<2){ showToast('Nome deve ter ao menos 2 caracteres.','error'); return; }
+  if(!isValidEmail(email)){ showToast('E-mail inválido.','error'); return; }
+  if(phone&&!isValidPhone(phone)){ showToast('Telefone inválido.','error'); return; }
+  if(!isStrongPassword(pass)){ showToast('Senha deve ter ao menos 8 caracteres.','error'); return; }
+  if(!addr||addr.length<5){ showToast('Endereço muito curto.','error'); return; }
+  showLoading('Criando conta...');
+  var users=await fbLoadUsers();
+  hideLoading();
+  if(users.find(u=>u.email===email)){ showToast('E-mail já cadastrado.','error'); return; }
+  if(users.find(u=>u.name.toLowerCase()===name.toLowerCase())){ showToast('Nome já em uso. Escolha outro.','error'); return; }
+  var user={name:sanitize(name),phone:sanitize(phone),email,passHash:hashPassword(pass),address:sanitize(addr),isOwner:false};
+  var saved=await fbSaveUser(user);
+  if(!saved){ showToast('Erro ao criar conta.','error'); return; }
+  state.currentUser=saved; state.isOwner=false; createSession();
+  updateAuthUI(); closeModal('modal-register');
+  showToast('Conta criada! Bem-vindo, '+sanitize(name)+'!','success');
+};
+function updateAuthUI(){
+  var ui=document.getElementById('user-info'),gb=document.getElementById('guest-buttons');
+  if(state.currentUser){ ui.style.display='flex'; gb.style.display='none'; document.getElementById('user-name-display').textContent=state.currentUser.name; }
+  else{ ui.style.display='none'; gb.style.display='flex'; }
+}
+
+// PRODUCTS
+var _pdProduct=null,_pdQty=1;
+function renderProducts(){
+  ALL_CATS.forEach(cat=>{
+    var grid=document.getElementById('grid-'+cat);
+    var countEl=document.getElementById(cat+'-count');
+    var prods=state.products[cat]||[];
+    if(countEl) countEl.textContent=prods.length+' itens';
+    if(!grid) return;
+    if(!prods.length){ grid.innerHTML='<div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum produto ainda.</p></div>'; return; }
+    grid.innerHTML=prods.map(p=>{
+      var sc=p.stock===0?'stock-out':(p.stock<=p.alert?'stock-low':'stock-ok');
+      var sl=p.stock===0?'Esgotado':(p.stock<=p.alert?('Apenas '+p.stock+' restantes'):(p.stock+' em estoque'));
+      var imgHtml=p.photo?'<img src="'+p.photo+'" style="width:100%;height:100%;object-fit:cover;">'+'':'<span style="font-size:44px">'+(p.emoji||'')+'</span>';
+      var cartBtn=p.stock>0?'<button class="btn btn-gold btn-sm" data-action="cart" data-id="'+p.id+'" data-cat="'+cat+'">+ Carrinho</button>':'<button class="btn btn-sm" style="opacity:0.4;cursor:not-allowed;background:var(--dark4);color:var(--gray);border:none;" disabled>Esgotado</button>';
+      return '<div class="product-card" data-action="detail" data-id="'+p.id+'" data-cat="'+cat+'"><div class="product-img">'+imgHtml+'</div><div class="product-info"><div class="product-name">'+sanitize(p.name)+'</div><div class="product-desc">'+(p.desc?sanitize(p.desc):'')+'</div><div class="product-price">'+formatBRL(p.price)+'</div><div class="product-stock '+sc+'">'+sl+'</div></div><div class="product-actions">'+cartBtn+'</div></div>';
+    }).join('');
+  });
+  document.querySelectorAll('.product-grid').forEach(grid=>{
+    grid.onclick=e=>{
+      var cartBtn=e.target.closest('button[data-action="cart"]');
+      if(cartBtn){ var prod=(state.products[cartBtn.dataset.cat]||[]).find(p=>p.id===cartBtn.dataset.id); if(prod) addToCart(prod); return; }
+      var card=e.target.closest('.product-card[data-action="detail"]');
+      if(card){ var prod=(state.products[card.dataset.cat]||[]).find(p=>p.id===card.dataset.id); if(prod) openProductDetail(prod); }
+    };
+  });
+}
+function openProductDetail(product){
+  _pdProduct=product; _pdQty=1;
+  var photoEl=document.getElementById('pd-photo');
+  if(product.photo) photoEl.innerHTML='<img src="'+product.photo+'" style="width:100%;height:100%;object-fit:cover;">';
+  else if(product.emoji){ photoEl.innerHTML='<span style="font-size:72px">'+product.emoji+'</span>'; photoEl.style.background='var(--dark3)'; }
+  else photoEl.innerHTML='<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--dark3),var(--dark4));display:flex;align-items:center;justify-content:center;"><span style="font-family:Playfair Display,serif;font-size:28px;color:var(--gold)">Adega Black</span></div>';
+  document.getElementById('pd-name').textContent=product.name;
+  document.getElementById('pd-price').textContent=formatBRL(product.price);
+  document.getElementById('pd-desc').textContent=product.desc||'';
+  var stockEl=document.getElementById('pd-stock');
+  if(product.stock===0) stockEl.innerHTML='<span class="stock-out">Produto esgotado</span>';
+  else if(product.stock<=product.alert) stockEl.innerHTML='<span class="stock-low">Apenas '+product.stock+' unidades</span>';
+  else stockEl.innerHTML='<span class="stock-ok">'+product.stock+' disponíveis</span>';
+  document.getElementById('pd-qty').textContent=1;
+  document.getElementById('pd-subtotal').textContent=formatBRL(product.price);
+  var addBtn=document.getElementById('pd-add-btn');
+  addBtn.disabled=product.stock===0; addBtn.style.opacity=product.stock===0?'0.4':'1';
+  addBtn.textContent=product.stock===0?'Esgotado':'Adicionar ao Carrinho';
+  document.getElementById('modal-product-detail').classList.add('active');
+}
+window.openProductDetail=openProductDetail;
+window.pdChangeQty=function(delta){
+  if(!_pdProduct) return;
+  _pdQty=Math.max(1,Math.min(_pdProduct.stock,_pdQty+delta));
+  document.getElementById('pd-qty').textContent=_pdQty;
+  document.getElementById('pd-subtotal').textContent=formatBRL(_pdProduct.price*_pdQty);
+};
+window.pdAddToCart=function(){
+  if(!_pdProduct) return;
+  if(!state.currentUser){ closeModal('modal-product-detail'); openModal('modal-login'); return; }
+  var ex=state.cart.find(i=>i.id===_pdProduct.id);
+  if((ex?ex.qty:0)+_pdQty>_pdProduct.stock){ showToast('Quantidade ultrapassa o estoque.','error'); return; }
+  if(ex) ex.qty+=_pdQty; else state.cart.push({..._pdProduct,qty:_pdQty});
+  updateCartUI(); closeModal('modal-product-detail');
+  showToast(_pdProduct.name+' adicionado!','success');
+};
+
+// CART
+function addToCart(product){
+  if(!state.currentUser){ openModal('modal-login'); showToast('Faça login para comprar',''); return; }
+  var ex=state.cart.find(i=>i.id===product.id);
+  if(ex){ if(ex.qty>=product.stock){ showToast('Estoque máximo atingido','error'); return; } ex.qty++; }
+  else state.cart.push({...product,qty:1});
+  updateCartUI(); showToast(product.name+' adicionado!','success');
+}
+function updateCartUI(){
+  var subtotal=state.cart.reduce((s,i)=>s+i.price*i.qty,0);
+  var count=state.cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cart-badge').textContent=count;
+  document.getElementById('cart-btn').style.display=count>0?'flex':'none';
+  document.getElementById('cart-total-val').textContent=formatBRL(subtotal+state.deliveryFee);
+  var list=document.getElementById('cart-items-list');
+  if(!state.cart.length){ list.innerHTML='<div class="empty-state" style="padding:20px"><p>Carrinho vazio.</p></div>'; return; }
+  list.innerHTML=state.cart.map(i=>'<div class="cart-item"><span style="font-size:20px">'+(i.emoji||'')+'</span><div class="cart-item-name">'+sanitize(i.name)+'</div><div class="cart-qty-ctrl"><button class="qty-btn" data-cid="'+i.id+'" data-delta="-1">&#8722;</button><span>'+i.qty+'</span><button class="qty-btn" data-cid="'+i.id+'" data-delta="1">+</button></div><div class="cart-item-price">'+formatBRL(i.price*i.qty)+'</div></div>').join('');
+  list.onclick=e=>{ var btn=e.target.closest('button[data-cid]'); if(!btn) return; changeCartQty(btn.dataset.cid,parseInt(btn.dataset.delta)); };
+}
+function changeCartQty(id,delta){
+  var item=state.cart.find(i=>i.id===id); if(!item) return;
+  item.qty+=delta;
+  if(item.qty<=0) state.cart=state.cart.filter(i=>i.id!==id);
+  updateCartUI();
+}
+window.selectPayment=function(el,method){
+  document.querySelectorAll('.pay-option').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected'); state.selectedPayment=method;
+  var pixBox=document.getElementById('pix-key-box'),pixDisplay=document.getElementById('pix-key-display');
+  if(method==='PIX'){ pixDisplay.textContent=state.deliveryConfig.pixKey||'Chave PIX não cadastrada.'; pixBox.style.display='block'; }
+  else pixBox.style.display='none';
+};
+window.selectDelivery=function(){ document.getElementById('delivery-opt').classList.add('selected'); document.getElementById('pickup-opt').classList.remove('selected'); state.deliveryMode='delivery'; updateCartUI(); };
+window.selectPickup=function(){ document.getElementById('pickup-opt').classList.add('selected'); document.getElementById('delivery-opt').classList.remove('selected'); state.deliveryMode='pickup'; state.deliveryFee=0; updateCartUI(); };
+function applyDeliveryFeeFromKm(km){
+  var cfg=state.deliveryConfig,status=document.getElementById('delivery-calc-status');
+  if(km>cfg.maxKm){ if(status) status.innerHTML='<span style="color:var(--red);">Fora da área de entrega (máx. '+cfg.maxKm+' km)</span>'; state.deliveryFee=0; }
+  else{ var fee=Math.max(cfg.minFee,km*cfg.kmPrice); state.deliveryFee=fee; if(status) status.innerHTML='<span style="color:var(--green);">'+km.toFixed(1)+' km — </span><span style="color:var(--gold);font-weight:700;">Taxa: '+formatBRL(fee)+'</span>'; }
+  state.deliveryKm=km; updateCartUI();
+}
+async function geocodeCoords(address){
+  var res=await fetch('https://nominatim.openstreetmap.org/search?q='+encodeURIComponent(address)+'&format=json&limit=1',{headers:{'Accept-Language':'pt-BR'}});
+  var data=await res.json();
+  if(data&&data[0]) return {lat:parseFloat(data[0].lat),lon:parseFloat(data[0].lon)};
+  return null;
+}
+function haversine(lat1,lon1,lat2,lon2){
+  var R=6371,dLat=(lat2-lat1)*Math.PI/180,dLon=(lon2-lon1)*Math.PI/180;
+  var a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+async function calcDeliveryAuto(){
+  var user=state.currentUser,status=document.getElementById('delivery-calc-status'),addrLine=document.getElementById('delivery-address-line');
+  if(!user||!user.address){ if(status) status.innerHTML='<span style="color:var(--orange);">Endereço não cadastrado.</span>'; return; }
+  if(addrLine) addrLine.textContent=user.address;
+  if(status) status.innerHTML='<span style="color:var(--gray);">Calculando...</span>';
+  try{
+    var c1=await geocodeCoords(user.address+', Sorocaba, SP');
+    var c2=await geocodeCoords('Wilson Roberto Nilsen 486, Sorocaba, SP');
+    if(c1&&c2){ applyDeliveryFeeFromKm(haversine(c1.lat,c1.lon,c2.lat,c2.lon)); if(status) status.innerHTML+=' <span style="font-size:11px;color:var(--gray);">(linha reta)</span>'; }
+    else throw new Error('geocode');
+  }catch(e){ if(status) status.innerHTML='<span style="color:var(--red);">Não foi possível calcular.</span>'; }
+}
+window.finalizarPedido=async function(){
+  if(!state.cart.length){ showToast('Carrinho vazio!','error'); return; }
+  if(!state.selectedPayment){ showToast('Selecione forma de pagamento','error'); return; }
+  if(!state.deliveryMode){ showToast('Selecione entrega ou retirada','error'); return; }
+  if(!state.currentUser){ openModal('modal-login'); return; }
+  if(state.deliveryMode==='delivery'&&state.deliveryKm>state.deliveryConfig.maxKm){ showToast('Fora da área de entrega!','error'); return; }
+  var subtotal=state.cart.reduce((s,i)=>s+i.price*i.qty,0);
+  var order={
+    customer:state.currentUser.name,phone:state.currentUser.phone||'',address:state.currentUser.address||'',
+    items:state.cart.map(i=>({name:i.name,price:i.price,qty:i.qty,emoji:i.emoji||''})),
+    payment:state.selectedPayment,delivery:state.deliveryMode,deliveryFee:state.deliveryFee,deliveryKm:state.deliveryKm||0,
+    subtotal,total:subtotal+state.deliveryFee,status:'pending',date:new Date().toLocaleString('pt-BR')
+  };
+  showLoading('Enviando pedido...');
+  var saved=await fbSaveOrder(order);
+  if(!saved){ hideLoading(); showToast('Erro ao enviar pedido.','error'); return; }
+  for(var ci of state.cart){
+    for(var cat of ALL_CATS){
+      var prod=(state.products[cat]||[]).find(p=>p.id===ci.id);
+      if(prod){ prod.stock=Math.max(0,prod.stock-ci.qty); await fbSaveProduct(prod,cat); }
+    }
+  }
+  hideLoading();
+  state.cart=[]; state.selectedPayment=null; state.deliveryMode=null; state.deliveryFee=0; state.deliveryKm=0;
+  updateCartUI(); renderProducts(); closeModal('modal-cart');
+  showToast('Pedido enviado! Aguarde confirmação.','success');
+};
+
+// OWNER PANEL
+function statusLabel(s){ return {pending:'Pendente',accepted:'Aceito',declined:'Recusado',delivered:'Entregue'}[s]||s; }
+async function renderOwnerPanel(){
+  if(!requireOwner()) return;
+  var orders=await fbLoadOrders();
+  var pending=orders.filter(o=>o.status==='pending').length;
+  var revenue=orders.filter(o=>o.status!=='declined').reduce((s,o)=>s+o.total,0);
+  var totalProds=ALL_CATS.reduce((s,c)=>s+(state.products[c]||[]).length,0);
+  document.getElementById('owner-stats').innerHTML=
+    '<div class="stat-card"><div class="stat-val">'+orders.length+'</div><div class="stat-lbl">Pedidos</div></div>'+
+    '<div class="stat-card"><div class="stat-val">'+pending+'</div><div class="stat-lbl">Pendentes</div></div>'+
+    '<div class="stat-card"><div class="stat-val">'+formatBRL(revenue)+'</div><div class="stat-lbl">Receita</div></div>'+
+    '<div class="stat-card"><div class="stat-val">'+totalProds+'</div><div class="stat-lbl">Produtos</div></div>';
+  var alerts=[];
+  ALL_CATS.forEach(cat=>(state.products[cat]||[]).forEach(p=>{ if(p.stock<=p.alert) alerts.push(p); }));
+  document.getElementById('stock-alerts-container').innerHTML=alerts.map(p=>'<div class="alert-card">Alerta: <strong>'+sanitize(p.name)+'</strong> — estoque baixo: '+p.stock+' unid.</div>').join('');
+  var oc=document.getElementById('orders-container');
+  if(!orders.length){ oc.innerHTML='<div class="empty-state"><div class="empty-icon" style="font-size:32px;opacity:0.3;">—</div><p>Nenhum pedido ainda.</p></div>'; }
+  else{
+    var rows=orders.map(o=>{
+      var act='';
+      if(o.status==='pending') act='<button class="btn btn-green btn-sm" data-oid="'+o.id+'" data-st="accepted">&#10003; Aceitar</button><button class="btn btn-red btn-sm" data-oid="'+o.id+'" data-st="declined">&#10005; Recusar</button>';
+      else if(o.status==='accepted') act='<button class="btn btn-outline btn-sm" data-oid="'+o.id+'" data-st="delivered">Entregue</button>';
+      act+='<button class="btn btn-outline btn-sm" data-oid="'+o.id+'" data-st="view">Ver</button>';
+      return '<tr><td style="color:var(--gray);font-size:11px;">#'+String(o.id).slice(-6)+'</td><td>'+sanitize(o.customer)+'</td><td style="color:var(--gold)">'+formatBRL(o.total)+'</td><td>'+sanitize(o.payment)+'</td><td>'+(o.delivery==='delivery'?'Entrega':'Retirada')+'</td><td style="font-size:11px;color:var(--gray)">'+sanitize(o.date)+'</td><td><span class="status-badge status-'+o.status+'">'+statusLabel(o.status)+'</span></td><td style="display:flex;gap:4px;flex-wrap:wrap;">'+act+'</td></tr>';
+    }).join('');
+    oc.innerHTML='<div style="overflow-x:auto;"><table class="orders-table"><thead><tr><th>ID</th><th>Cliente</th><th>Total</th><th>Pgto</th><th>Tipo</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+    oc.onclick=async e=>{
+      var btn=e.target.closest('button[data-oid]'); if(!btn) return;
+      var id=btn.dataset.oid,st=btn.dataset.st;
+      if(st==='view') showOrderDetail(id,orders);
+      else{ await fbUpdateOrderStatus(id,st); showToast(st==='accepted'?'Pedido aceito!':st==='declined'?'Recusado.':'Entregue!',st==='declined'?'error':'success'); renderOwnerPanel(); }
+    };
+  }
+  updateDeliveryPreview();
+}
+function showOrderDetail(id,orders){
+  var o=orders.find(o=>o.id===id); if(!o) return;
+  var rows=(o.items||[]).map(i=>'<tr><td>'+sanitize(i.name)+'</td><td>'+i.qty+'</td><td>'+formatBRL(i.price*i.qty)+'</td></tr>').join('');
+  document.getElementById('order-detail-content').innerHTML=
+    '<p style="color:var(--gray);font-size:12px;margin-bottom:14px;">#'+String(o.id).slice(-6)+' — '+sanitize(o.date)+'</p>'+
+    '<div style="margin-bottom:10px;"><strong>Cliente:</strong> '+sanitize(o.customer)+'</div>'+
+    '<div style="margin-bottom:10px;"><strong>Tel:</strong> '+sanitize(o.phone||'N/A')+'</div>'+
+    '<div style="margin-bottom:10px;"><strong>Endereço:</strong> '+sanitize(o.address||'Retirada')+'</div>'+
+    '<div style="margin-bottom:10px;"><strong>Pagamento:</strong> '+sanitize(o.payment)+'</div>'+
+    '<div style="margin-bottom:14px;"><strong>Entrega:</strong> '+(o.delivery==='delivery'?'Entrega ('+Number(o.deliveryKm||0).toFixed(1)+'km) — '+formatBRL(o.deliveryFee):'Retirar na loja')+'</div>'+
+    '<table class="orders-table" style="margin-bottom:10px;"><thead><tr><th>Produto</th><th>Qtd</th><th>Sub</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+    '<div style="display:flex;justify-content:space-between;border-top:1px solid var(--dark4);padding-top:10px;font-size:18px;font-weight:700;"><span>Total</span><span style="color:var(--gold)">'+formatBRL(o.total)+'</span></div>'+
+    '<div style="margin-top:12px;"><span class="status-badge status-'+o.status+'">'+statusLabel(o.status)+'</span></div>';
+  openModal('modal-order-detail');
+}
+
+// STOCK
+async function renderStockList(){
+  if(!requireOwner()) return;
+  var catNames={copao:'Copão','copao-gourmet':'Copão Gourmet','cervejas-600ml':'600ml','cervejas-gorducha':'Gorduchinhas','cervejas-lata':'Lata','cervejas-vidro':'Vidro','cervejas-fardo':'Fardos',doses:'Doses',licores:'Licores','sorvetes-picole':'Picolé','sorvetes-massa':'De massa (pote)',porcoes:'Porções',salgados:'Salgados & Frios',gelos:'Gelos','narguile-essencias':'Narguile — Essências',cigarros:'Cigarros',outros:'Outros'};
+  var container=document.getElementById('stock-list'),html='';
+  ALL_CATS.forEach(cat=>{
+    var prods=state.products[cat]||[];
+    html+='<div style="margin-bottom:22px;"><h4 style="color:var(--gold-light);font-size:14px;margin-bottom:8px;">'+catNames[cat]+'</h4>';
+    if(!prods.length) html+='<p style="color:var(--gray);font-size:12px;">Nenhum produto.</p>';
+    else{
+      html+='<div style="overflow-x:auto;"><table class="orders-table"><thead><tr><th>Produto</th><th>Preço</th><th>Estoque</th><th>Alerta</th><th>Ações</th></tr></thead><tbody>';
+      prods.forEach(p=>{
+        var sc=p.stock===0?'stock-out':(p.stock<=p.alert?'stock-low':'stock-ok');
+        html+='<tr><td>'+sanitize(p.name)+'</td><td>'+formatBRL(p.price)+'</td><td class="'+sc+'">'+p.stock+'</td><td style="color:var(--gray)">'+p.alert+'</td><td style="display:flex;gap:5px;"><button class="btn btn-outline btn-sm" data-action="edit" data-cat="'+cat+'" data-id="'+p.id+'">Editar</button><button class="btn btn-red btn-sm" data-action="delete" data-cat="'+cat+'" data-id="'+p.id+'">Remover</button></td></tr>';
+      });
+      html+='</tbody></table></div>';
+    }
+    html+='</div>';
+  });
+  container.innerHTML=html;
+  container.onclick=e=>{ var btn=e.target.closest('button[data-action]'); if(!btn) return; if(btn.dataset.action==='delete') deleteProduct(btn.dataset.cat,btn.dataset.id); else if(btn.dataset.action==='edit') window.openAddProduct(btn.dataset.cat,btn.dataset.id); };
+}
+async function deleteProduct(cat,id){
+  if(!requireOwner()) return;
+  if(!isValidCat(cat)){ showToast('Categoria inválida.','error'); return; }
+  await fbDeleteProduct(id);
+  state.products[cat]=(state.products[cat]||[]).filter(p=>p.id!==id);
+  renderProducts(); renderStockList(); showToast('Produto removido.','success');
+}
+
+// ADD/EDIT PRODUCT
+window.handlePhotoUpload=function(event){
+  var file=event.target.files[0]; if(!file) return;
+  var reader=new FileReader();
+  reader.onload=e=>{ var data=e.target.result; document.getElementById('prod-photo-data').value=data; document.getElementById('photo-preview-img').src=data; document.getElementById('photo-preview-img').style.display='block'; document.getElementById('photo-preview-text').style.display='none'; document.getElementById('photo-remove-btn').style.display='inline-block'; };
+  reader.readAsDataURL(file);
+};
+window.removePhoto=function(){
+  document.getElementById('prod-photo-data').value=''; document.getElementById('prod-photo-input').value='';
+  document.getElementById('photo-preview-img').src=''; document.getElementById('photo-preview-img').style.display='none';
+  document.getElementById('photo-preview-text').style.display='block'; document.getElementById('photo-remove-btn').style.display='none';
+};
+window.openAddProduct=function(cat,editId){
+  if(!requireOwner()) return;
+  document.getElementById('prod-category').value=cat;
+  document.getElementById('prod-edit-id').value=editId||'';
+  document.getElementById('add-product-title').textContent=editId?'Editar Produto':'Adicionar Produto';
+  window.removePhoto();
+  ['prod-name','prod-desc','prod-stock','prod-alert','prod-emoji'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('prod-price').value='0,00';
+  if(editId){
+    var prod=(state.products[cat]||[]).find(p=>p.id==editId);
+    if(prod){
+      document.getElementById('prod-name').value=prod.name;
+      document.getElementById('prod-desc').value=prod.desc||'';
+      document.getElementById('prod-price').value=prod.price.toFixed(2).replace('.',',');
+      document.getElementById('prod-stock').value=prod.stock;
+      document.getElementById('prod-alert').value=prod.alert;
+      document.getElementById('prod-emoji').value=prod.emoji||'';
+      if(prod.photo){ document.getElementById('prod-photo-data').value=prod.photo; document.getElementById('photo-preview-img').src=prod.photo; document.getElementById('photo-preview-img').style.display='block'; document.getElementById('photo-preview-text').style.display='none'; document.getElementById('photo-remove-btn').style.display='inline-block'; }
+    }
+  }
+  openModal('modal-add-product');
+};
+window.saveProduct=async function(){
+  if(!requireOwner()) return;
+  var cat=document.getElementById('prod-category').value;
+  var editId=document.getElementById('prod-edit-id').value;
+  if(!isValidCat(cat)){ showToast('Categoria inválida.','error'); return; }
+  var name=stripScripts(document.getElementById('prod-name').value.trim());
+  var desc=stripScripts(document.getElementById('prod-desc').value.trim());
+  var price=getPriceValue(document.getElementById('prod-price'));
+  var stock=parseInt(document.getElementById('prod-stock').value);
+  var alert=parseInt(document.getElementById('prod-alert').value)||5;
+  var emoji=document.getElementById('prod-emoji').value.trim()||'';
+  var photo=document.getElementById('prod-photo-data').value||null;
+  if(!name){ showToast('Nome obrigatório.','error'); return; }
+  if(!isValidPrice(price)){ showToast('Preço inválido.','error'); return; }
+  if(!isValidStock(stock)){ showToast('Estoque inválido.','error'); return; }
+  if(photo&&!photo.startsWith('data:image/')) photo=null;
+  var product={name:sanitize(name),desc:sanitize(desc),price,stock,alert,emoji:emoji.slice(0,4),photo};
+  if(editId) product.id=editId;
+  if(!state.products[cat]) state.products[cat]=[];
+  showLoading('Salvando produto...');
+  var savedId=await fbSaveProduct(product,cat);
+  hideLoading();
+  if(!savedId){ showToast('Erro ao salvar.','error'); return; }
+  product.id=savedId;
+  if(editId){ var idx=state.products[cat].findIndex(p=>p.id==editId); if(idx>=0) state.products[cat][idx]=product; else state.products[cat].push(product); }
+  else state.products[cat].push(product);
+  showToast(editId?'Produto atualizado!':'Produto adicionado!','success');
+  closeModal('modal-add-product'); renderProducts(); renderStockList();
+};
+
+// DELIVERY
+window.saveDeliveryConfig=async function(){
+  if(!requireOwner()) return;
+  state.deliveryConfig.kmPrice=parseFloat(document.getElementById('km-price').value)||2;
+  state.deliveryConfig.minFee=parseFloat(document.getElementById('min-fee').value)||5;
+  state.deliveryConfig.maxKm=parseInt(document.getElementById('max-km').value)||10;
+  await fbSaveConfig(); updateDeliveryPreview(); showToast('Configuração salva!','success');
+};
+window.savePixKey=async function(){
+  if(!requireOwner()) return;
+  var key=document.getElementById('pix-key-input').value.trim();
+  if(!key){ showToast('Digite a chave PIX.','error'); return; }
+  state.deliveryConfig.pixKey=sanitize(key);
+  await fbSaveConfig();
+  document.getElementById('pix-key-current').textContent=key;
+  document.getElementById('pix-key-preview').style.display='block';
+  showToast('Chave PIX salva!','success');
+};
+function updateDeliveryPreview(){
+  var cfg=state.deliveryConfig;
+  var el=document.getElementById('delivery-preview');
+  if(el) el.innerHTML='<strong>Config atual:</strong> '+formatBRL(cfg.kmPrice)+'/km · Mín. '+formatBRL(cfg.minFee)+' · Máx. '+cfg.maxKm+'km';
+  var kp=document.getElementById('km-price'),mf=document.getElementById('min-fee'),mk=document.getElementById('max-km');
+  if(kp) kp.value=cfg.kmPrice; if(mf) mf.value=cfg.minFee; if(mk) mk.value=cfg.maxKm;
+  var pi=document.getElementById('pix-key-input'),pp=document.getElementById('pix-key-preview'),pc=document.getElementById('pix-key-current');
+  if(pi&&cfg.pixKey){ pi.value=cfg.pixKey; if(pc) pc.textContent=cfg.pixKey; if(pp) pp.style.display='block'; }
+}
+
+// BACKUP
+window.exportarDados=async function(){
+  if(!requireOwner()) return;
+  var orders=await fbLoadOrders();
+  var backup={version:3,exportedAt:new Date().toLocaleString('pt-BR'),products:state.products,deliveryConfig:state.deliveryConfig,orders};
+  var blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
+  var url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url; a.download='adega-black-backup.json';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  showToast('Backup exportado!','success');
+};
+window.importarDados=async function(event){
+  if(!requireOwner()) return;
+  var file=event.target.files[0]; if(!file) return;
+  var reader=new FileReader();
+  reader.onload=async e=>{
+    try{
+      var data=JSON.parse(e.target.result);
+      if(!data.products){ showToast('Arquivo inválido.','error'); return; }
+      showLoading('Importando dados...');
+      for(var cat of ALL_CATS){ var prods=data.products[cat]||[]; for(var p of prods){ var sid=await fbSaveProduct(p,cat); p.id=sid; } state.products[cat]=prods; }
+      if(data.deliveryConfig){ state.deliveryConfig=data.deliveryConfig; await fbSaveConfig(); }
+      hideLoading(); renderProducts(); updateDeliveryPreview();
+      var status=document.getElementById('import-status');
+      if(status){ status.textContent='Backup importado com sucesso!'; status.style.display='block'; }
+      showToast('Dados importados!','success');
+    }catch(err){ hideLoading(); showToast('Erro ao importar.','error'); }
+  };
+  reader.readAsText(file); event.target.value='';
+};
+
+initApp();
+</script>
+
+</body></html>
